@@ -19,10 +19,10 @@ Wednesday 12:00 PM
 Mostly cloudy   
 
 
-Wed --> High: 79°F Low: 66°F     Partly cloudy  
-Thu --> High: 77°F Low: 69°F     Mostly sunny  
-Fri --> High: 80°F Low: 72°F     Mostly sunny  
-Sat --> High: 87°F Low: 74°F     Mostly sunny  
-Sun --> High: 92°F Low: 75°F     Partly cloudy  
-Mon --> High: 84°F Low: 70°F     Scattered thunderstorms   
-Tue --> High: 80°F Low: 68°F     Sunny  
+Wed --> High: 79°F Low: 66°F &nbsp; &nbsp; Partly cloudy
+Thu --> High: 77°F Low: 69°F &nbsp; &nbsp; Mostly sunny 
+Fri --> High: 80°F Low: 72°F &nbsp; &nbsp; Mostly sunny  
+Sat --> High: 87°F Low: 74°F &nbsp; &nbsp; Mostly sunny  
+Sun --> High: 92°F Low: 75°F &nbsp; &nbsp; Partly cloudy  
+Mon --> High: 84°F Low: 70°F &nbsp; &nbsp; Scattered thunderstorms   
+Tue --> High: 80°F Low: 68°F &nbsp; &nbsp; Sunny  
