@@ -25,6 +25,7 @@ def main():
         city = args[1]
         state = args[2]
         soup = make_request(city, state)
+        get_forecast_descr(soup)
         dispatch(soup)
     
     sys.exit()
@@ -38,33 +39,29 @@ def make_request(city, state):
 
 def get_forecasts(soup):
     results = {}
+    #extracting the temperature symbol from the text
+    degrees_sym = get_degrees_sym(soup)
     container = soup.select("div.wob_df")
-    for x in container:
+    summaries = get_forecast_descr(soup)
+    for i, x in enumerate(container):
         #outer div holds both the temp forecasts and corresponding days
         outer_div = x.select('div.QrNVmd')
 
         #day is the first element in the outer div
         day = outer_div[0].get_text()
-
-        #extracting the temperature symbol from the text
-        temp_symbol = outer_div[-1].get_text()[-1]
         
         #selecting the two spans that hold the high and low temp for each day
         #can expand here to include celsius option
         temps = x.select('span.wob_t')
-        high = f'{temps[0].get_text()}{temp_symbol}'
-        low = f'{temps[2].get_text()}{temp_symbol}'
+        high = f'{temps[0].get_text()}{degrees_sym}'
+        low = f'{temps[2].get_text()}{degrees_sym}'
         results[day] = {
             'high': high,
-            'low': low
+            'low': low,
+            'descr': summaries[i]
         }
     
     return results
-
-def print_headings(headings):
-    print("\n")
-    for heading in headings.values():
-        print(f'{heading}')
 
 def get_headings(soup):
     city = soup.select("div#wob_loc")[0].get_text()
@@ -81,7 +78,17 @@ def get_headings(soup):
 
 def get_curr_temp(soup):
     curr_temp = soup.select("span#wob_tm.wob_t")[0].get_text()
-    return curr_temp
+    temp_sym = get_degrees_sym(soup)
+    return f'{curr_temp}{temp_sym}'
+
+def get_degrees_sym(soup):
+    temp_sym = soup.select("div.vk_bk.wob-unit")[0].get_text()[:2]
+    return temp_sym
+
+def print_headings(headings):
+    print("\n")
+    for heading in headings.values():
+        print(f'{heading}')
 
 def print_curr_temp(curr_temp):
     print(f'\nTemp: {curr_temp}\n')
@@ -90,9 +97,10 @@ def print_forecasts(forecasts):
     print("\n")
     for day in forecasts:
         forecast = forecasts[day]
-        high = forecast.get('high')
-        low = forecast.get('low')
-        print(f'{day} --> High: {high} Low: {low}')
+        high = forecast['high']
+        low = forecast['low']
+        descr = forecast['descr']
+        print(f'{day} --> High: {high} Low: {low}   {descr}')
     print("\n")
 
 def display_current_weather(soup):
@@ -108,6 +116,13 @@ def display_forecasts(soup):
 def dispatch(soup, flag='-c'):
     display_fn = options[flag]
     display_fn(soup)
+
+def get_forecast_descr(soup):
+    imgs = soup.select("div#wob_dp img")
+    summaries = []
+    for x in imgs:
+        summaries.append(x['alt'])
+    return summaries
 
 options = {
     '-c':  display_current_weather,
