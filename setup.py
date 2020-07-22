@@ -8,7 +8,8 @@ setup(
     py_modules=['weather_cli'],
     install_requires=[
         'beautifulsoup4',
-        'requests'
+        'requests',
+        'html5lib'
     ],
     entry_points={
         'console_scripts': [
