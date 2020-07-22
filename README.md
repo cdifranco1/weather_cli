@@ -14,9 +14,9 @@ get_weather -f chicago il
 Week's Forecast:
 
 
-Chicago, IL
-Wednesday 12:00 PM
-Mostly cloudy
+Chicago, IL  
+Wednesday 12:00 PM  
+Mostly cloudy   
 
 
 Wed --> High: 79°F Low: 66°F   Partly cloudy  
