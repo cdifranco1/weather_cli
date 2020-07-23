@@ -6,8 +6,18 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
 }
 
+fetch_error_msg = "\nCould not find weather for the provided city. Please enter a different city.\n"
+
+#see if user entered a legitimate city by checking for "weather.com"
+def check_fetch(soup):
+    weather_link = soup.find("a", string="weather.com")
+    if not weather_link:
+        print(fetch_error_msg)
+        sys.exit()
+
+
 def show_usage():
-    print('\nUsage: get_weather City State \n\n City: Name of city. If the city is more than one word, do not add spaces ("NewYork" or "newyork"). \n State: State abbreviation ("NY" or "ny")\n')
+    print('\nUsage: get_weather City State \n\n City: Name of city. If the city is more than one word, do not add spaces ("NewYork" or "newyork"). \n State: State ("NY", "ny", or "newyork"). The state argument can also take country names for non-US cities.\n')
 
 def main():
     args = sys.argv
@@ -15,18 +25,20 @@ def main():
         show_usage()
         sys.exit()
     
+    state = args[-1]
+    city = args[-2]
     if len(args) > 3:
         flag = args[1]
-        city = args[2]
-        state = args[3]
-        soup = make_request(city, state)
-        dispatch(soup, flag)
+        if flag not in options:
+            show_usage()
+            sys.exit()
     else:
-        city = args[1]
-        state = args[2]
-        soup = make_request(city, state)
-        get_forecast_descr(soup)
-        dispatch(soup)
+        #defaulting to current weather 
+        flag = "-c"
+
+    soup = make_request(city, state)
+    check_fetch(soup)
+    dispatch(soup, flag)
     
     sys.exit()
 
@@ -64,9 +76,9 @@ def get_forecasts(soup):
     return results
 
 def get_headings(soup):
-    city = soup.select("div#wob_loc")[0].get_text()
-    time = soup.select("div#wob_dts")[0].get_text()
-    descr = soup.select("span#wob_dc")[0].get_text()
+    city = soup.select_one("div#wob_loc").get_text()
+    time = soup.select_one("div#wob_dts").get_text()
+    descr = soup.select_one("span#wob_dc").get_text()
 
     results = {
         'city': city, 
@@ -76,8 +88,16 @@ def get_headings(soup):
 
     return results
 
+def get_curr_weather(soup):
+    temp = get_curr_temp(soup)
+    precip = soup.select_one("#wob_pp").get_text()
+    humidity = soup.select_one("#wob_hm").get_text()
+    wind = soup.select_one("#wob_ws").get_text()
+    return temp, precip, humidity, wind
+
+
 def get_curr_temp(soup):
-    curr_temp = soup.select("span#wob_tm.wob_t")[0].get_text()
+    curr_temp = soup.select_one("span#wob_tm.wob_t").get_text()
     temp_sym = get_degrees_sym(soup)
     return f'{curr_temp}{temp_sym}'
 
@@ -90,8 +110,13 @@ def print_headings(headings):
     for heading in headings.values():
         print(f'{heading}')
 
-def print_curr_temp(curr_temp):
-    print(f'\nTemp: {curr_temp}\n')
+def print_curr_weather(weather):
+    '''
+    Takes in tuple of temp, precip, humidity, wind
+    '''
+    temp, precip, humidity, wind = weather
+
+    print(f'\nTemp: {temp}\n\nPrecipitation: {precip}\nHumidity: {humidity}\nWind: {wind}\n')
 
 def print_forecasts(forecasts):
     print("\n")
@@ -106,7 +131,7 @@ def print_forecasts(forecasts):
 def display_current_weather(soup):
     print("\nCurrent Weather:")
     print_headings(get_headings(soup))
-    print_curr_temp(get_curr_temp(soup))
+    print_curr_weather(get_curr_weather(soup))
 
 def display_forecasts(soup):
     print("\nWeek's Forecast:")
