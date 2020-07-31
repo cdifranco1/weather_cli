@@ -26,8 +26,8 @@ Sat --> High: 87°F Low: 74°F &nbsp; &nbsp; Mostly sunny
 Sun --> High: 92°F Low: 75°F &nbsp; &nbsp; Partly cloudy   
 Mon --> High: 84°F Low: 70°F &nbsp; &nbsp; Scattered thunderstorms   
 Tue --> High: 80°F Low: 68°F &nbsp; &nbsp; Sunny  
-
-
+<br>
+<br>
 
 My-MacBook-Air:~ get_weather ny ny
 
