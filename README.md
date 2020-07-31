@@ -9,7 +9,7 @@ Once installed, the app can be accessed from any directory by running "get_weath
 
 #### Example Usage:
 
-My-MacBook-Air:~ get_weather -f chicago il
+My-MacBook-Air:~ get_weather -f chicago il  
 <br>
 Week's Forecast:
 <br>
@@ -17,7 +17,6 @@ Week's Forecast:
 Chicago, IL  
 Wednesday 12:00 PM  
 Mostly cloudy   
-<br>
 <br>
 Wed --> High: 79°F Low: 66°F &nbsp; &nbsp; Partly cloudy  
 Thu --> High: 77°F Low: 69°F &nbsp; &nbsp; Mostly sunny  
