@@ -10,15 +10,15 @@ Once installed, the app can be accessed from any directory by running "get_weath
 #### Example Usage:
 
 My-MacBook-Air:~ get_weather -f chicago il
-
+<br>
 Week's Forecast:
-
-
+<br>
+<br>
 Chicago, IL  
 Wednesday 12:00 PM  
 Mostly cloudy   
-
-
+<br>
+<br>
 Wed --> High: 79°F Low: 66°F &nbsp; &nbsp; Partly cloudy  
 Thu --> High: 77°F Low: 69°F &nbsp; &nbsp; Mostly sunny  
 Fri --> High: 80°F Low: 72°F &nbsp; &nbsp; Mostly sunny  
@@ -30,16 +30,16 @@ Tue --> High: 80°F Low: 68°F &nbsp; &nbsp; Sunny
 <br>
 
 My-MacBook-Air:~ get_weather ny ny
-
+<br>
 Current Weather:
-
-
+<br>
+<br>
 New York, NY
 Thursday 9:00 PM
 Clear
-
+<br>
 Temp: 85°F
-
+<br>
 Precipitation: 15%
 Humidity: 55%
 Wind: 2 mph
