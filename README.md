@@ -31,12 +31,13 @@ Tue --> High: 80°F Low: 68°F &nbsp; &nbsp; Sunny
 
 My-MacBook-Air:~ get_weather ny ny
 <br>
+
 Current Weather:
 <br>
 <br>
-New York, NY
-Thursday 9:00 PM
-Clear
+New York, NY<br>
+Thursday 9:00 PM<br>
+Clear<br>
 <br>
 Temp: 85°F
 <br>
