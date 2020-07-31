@@ -38,7 +38,7 @@ New York, NY<br>
 Thursday 9:00 PM<br>
 Clear<br>
 <br>
-Temp: 85°F
+Temp: 85°F  
 <br>
 Precipitation: 15%   
 Humidity: 55%  
