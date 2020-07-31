@@ -40,6 +40,6 @@ Clear
 <br>
 Temp: 85°F
 <br>
-Precipitation: 15%
-Humidity: 55%
-Wind: 2 mph
+Precipitation: 15%   
+Humidity: 55%  
+Wind: 2 mph  
