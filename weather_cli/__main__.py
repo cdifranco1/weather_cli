@@ -5,7 +5,7 @@ query = "?q=weather"
 headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
 }
-
+max_hourly_results = 8
 fetch_error_msg = "\nCould not find weather for the provided city. Please enter a different city.\n"
 
 #see if user entered a legitimate city by checking for "weather.com"
@@ -95,6 +95,14 @@ def get_curr_weather(soup):
     wind = soup.select_one("#wob_ws").get_text()
     return temp, precip, humidity, wind
 
+def get_hourly_weather(soup):
+    svg = soup.select("#wob_gs.wob_t")
+    print(svg)
+    # selectors = [f'.wob_t.wob_gs_l{x}' for x in range(max_hourly_results)]
+    # print(selectors)
+    # print(soup.select(selectors[0]))
+    # hourly_tags = [soup.select(selector) for selector in selectors] 
+    # print(hourly_tags)
 
 def get_curr_temp(soup):
     curr_temp = soup.select_one("span#wob_tm.wob_t").get_text()
@@ -128,6 +136,16 @@ def print_forecasts(forecasts):
         print(f'{day} --> High: {high} Low: {low}   {descr}')
     print("\n")
 
+def print_hourly(forecasts):
+    print("\n")
+    for day in forecasts:
+        forecast = forecasts[day]
+        high = forecast['high']
+        low = forecast['low']
+        descr = forecast['descr']
+        print(f'{day} --> High: {high} Low: {low}   {descr}')
+    print("\n")
+
 def display_current_weather(soup):
     print("\nCurrent Weather:")
     print_headings(get_headings(soup))
@@ -137,6 +155,11 @@ def display_forecasts(soup):
     print("\nWeek's Forecast:")
     print_headings(get_headings(soup))
     print_forecasts(get_forecasts(soup))
+
+def display_hourly(soup):
+    print("\nToday's Hourly Forecast:")
+    print_headings(get_headings(soup))
+    get_hourly_weather(soup)
 
 def dispatch(soup, flag='-c'):
     display_fn = options[flag]
@@ -151,6 +174,7 @@ def get_forecast_descr(soup):
 
 options = {
     '-c':  display_current_weather,
+    '-h':  display_hourly,
     '-f': display_forecasts
 }
    
