@@ -1,6 +1,6 @@
 # Weather CLI Web-Scraping App
 
-### Toy CLI application to scrape weather info for any given city from google search. 
+Toy CLI application to scrape weather info for any given city from google search. 
 
 ### Installation (for Mac users) 
 Clone the repository, cd into the root directory and run "bash install.sh". This should install the script to /usr/local/bin, and will install the app dependencies into your python site-packages.
